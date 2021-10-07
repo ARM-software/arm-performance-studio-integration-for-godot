@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="PerformanceStudio_CAMTrack" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Represents a Track within a CAM.
+	</brief_description>
+	<description>
+		Must be created through [method PerformanceStudio_CAM.create_track].
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="create_job">
+			<return type="PerformanceStudio_CAMJob" />
+			<param index="0" name="name" type="String" />
+			<param index="1" name="color" type="Color" />
+			<description>
+				Creates a job on the track, which will mark itself as starting immediately. Mark completion with a call to [method PerformanceStudio_CAMJob.stop] on the resulting job.
+			</description>
+		</method>
+	</methods>
+</class>

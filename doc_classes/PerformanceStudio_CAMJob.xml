@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="PerformanceStudio_CAMJob" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Represents a Job within a Track in a CAM.
+	</brief_description>
+	<description>
+		Must be created through [method PerformanceStudio_CAMTrack.create_job].
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="stop">
+			<return type="void" />
+			<description>
+				Register that the job has completed at this point in time.
+			</description>
+		</method>
+	</methods>
+</class>

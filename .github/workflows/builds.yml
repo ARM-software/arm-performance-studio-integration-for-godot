@@ -1,0 +1,117 @@
+name: Build GDExtension
+on:
+  workflow_call:
+  push:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        # Debug templates
+          - platform: android
+            arch: arm64
+            target-type: template_debug
+            os: ubuntu-20.04
+
+          - platform: android
+            arch: arm32
+            target-type: template_debug
+            os: ubuntu-20.04
+            
+          - platform: windows
+            arch: x86_64
+            target-type: template_debug
+            os: windows-latest
+
+          - platform: linux
+            arch: x86_64
+            target-type: template_debug
+            os: ubuntu-20.04
+          
+          - platform: macos
+            arch: universal
+            target-type: template_debug
+            os: macos-latest
+
+        # Release templates
+          - platform: android
+            arch: arm64
+            target-type: template_release
+            os: ubuntu-20.04
+          
+          - platform: android
+            arch: arm32
+            target-type: template_release
+            os: ubuntu-20.04
+          
+          - platform: windows
+            arch: x86_64
+            target-type: template_release
+            os: windows-latest
+
+          - platform: linux
+            arch: x86_64
+            target-type: template_release
+            os: ubuntu-20.04
+          
+          - platform: macos
+            arch: universal
+            target-type: template_release
+            os: macos-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+
+# Build
+      - name: 🔗 GDExtension Debug Build
+        uses: ./.github/actions/build
+        with:
+          platform: ${{ matrix.platform }}
+          arch: ${{ matrix.arch }}
+          build-target-type: ${{ matrix.target-type }}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        with:
+          name: PerformanceStudio-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.target-type }}
+          path: |
+            ${{ github.workspace }}/demo/addons
+
+  merge:
+    runs-on: ubuntu-20.04
+    needs: build
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+    steps:
+      - name: Download merged artifact
+        uses: actions/download-artifact@v4
+        with:
+          pattern: PerformanceStudio*
+          merge-multiple: true
+
+      - run: |
+          mkdir addons
+          mv PerformanceStudio addons/PerformanceStudio
+
+      - name: Archive Release
+        uses: thedoctor0/zip-release@0.7.1
+        with:
+          type: zip
+          directory: ${{ github.workspace }}
+          filename: PerformanceStudio.zip
+          path: .
+
+      - name: Release asset
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          artifacts: ${{ github.workspace }}/PerformanceStudio.zip
+          omitNameDuringUpdate: true
+          omitBodyDuringUpdate: true
+          token: ${{ secrets.GITHUB_TOKEN }}

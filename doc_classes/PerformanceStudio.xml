@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="PerformanceStudio" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Arm Performance Studio integration.
+	</brief_description>
+	<description>
+		Can be used to insert annotations and custom counters in Streamline.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="create_cam">
+			<return type="PerformanceStudio_CAM" />
+			<param index="0" name="name" type="String" />
+			<description>
+				Create a Custom Activity Map, which is displayed in the bottom half of the Streamline UI.
+			</description>
+		</method>
+		<method name="create_channel">
+			<return type="PerformanceStudio_Channel" />
+			<param index="0" name="name" type="String" />
+			<description>
+				Create a channel of activity, displayed as a row in Streamline's heat map view.
+			</description>
+		</method>
+		<method name="create_counter">
+			<return type="PerformanceStudio_Counter" />
+			<param index="0" name="title" type="String" />
+			<param index="1" name="series" type="String" />
+			<param index="2" name="delta" type="bool" />
+			<description>
+				Create a custom counter that can be tracked in Streamline.
+			</description>
+		</method>
+		<method name="marker">
+			<return type="void" />
+			<param index="0" name="name" type="String" />
+			<description>
+				Emit a simple marker that is displayed along the top of Streamline's timeline.
+			</description>
+		</method>
+		<method name="marker_color">
+			<return type="void" />
+			<param index="0" name="name" type="String" />
+			<param index="1" name="color" type="Color" />
+			<description>
+				Emit a colored marker that is displayed along the top of Streamline's timeline.
+			</description>
+		</method>
+	</methods>
+</class>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="PerformanceStudio_Channel" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Represents a channel of activity for the thread in which the channel was created.
+	</brief_description>
+	<description>
+		Represents a channel of activity for the thread in which the channel was created. Displayed as a row in Streamline's Heat Map view, inside the process.
+		Must be created through [method PerformanceStudio.create_channel].
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="annotate">
+			<return type="void" />
+			<param index="0" name="name" type="String" />
+			<description>
+				Starts an annotation in the channel, which will be labelled as specified. This will appear in the Channel as an activity that begins at the point in time where this method was called. It will end when the next [method annotate] call is made, or the next [method end] call.
+			</description>
+		</method>
+		<method name="annotate_color">
+			<return type="void" />
+			<param index="0" name="name" type="String" />
+			<param index="1" name="color" type="Color" />
+			<description>
+				Starts an annotation in the channel, which will be labelled and colored as specified. This will appear in the Channel as an activity that begins at the point in time where this method was called. It will end when the next [method annotate] call is made, or the next [method end] call.
+			</description>
+		</method>
+		<method name="end">
+			<return type="void" />
+			<description>
+				Marks the end of the current annotation.
+			</description>
+		</method>
+	</methods>
+</class>

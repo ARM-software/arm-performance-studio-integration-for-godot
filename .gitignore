@@ -1,0 +1,46 @@
+# Godot 4+ specific ignores
+.godot/
+
+# Ignore library files but not the gdextension file
+demo/android
+demo/addons/PerformanceStudio/*
+!demo/addons/PerformanceStudio/*.gdextension
+.sconsign*.dblite
+
+# Ignore custom.py
+custom.py
+
+# Ignore generated compile_commands.json
+compile_commands.json
+
+# Ignore generated documentation
+src/gen
+
+# Binaries
+bin
+*.o
+*.os
+*.so
+*.obj
+*.bc
+*.pyc
+*.dblite
+*.pdb
+*.lib
+*.config
+*.creator
+*.creator.user
+*.files
+*.includes
+*.idb
+*.exp
+
+# Other stuff
+*.log
+
+# VSCode
+.vscode/*
+!.vscode/extensions.json
+
+# VS
+.vs

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="PerformanceStudio_CAM" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		A Custom Activity Map, displayed in the bottom half of the Streamline UI.
+	</brief_description>
+	<description>
+		Each CAM consists of several Tracks, and each Track can have Jobs placed on it (like annotations in channels, but more flexible).
+		Must be created through [method PerformanceStudio.create_cam].
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="create_track">
+			<return type="PerformanceStudio_CAMTrack" />
+			<param index="0" name="name" type="String" />
+			<description>
+				Creates a track with the specified name. This can then be used to register Jobs. Each Track appears as a named row in the parent CAM.
+			</description>
+		</method>
+	</methods>
+</class>
