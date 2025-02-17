@@ -1,21 +1,21 @@
-Godot Bindings for Performance Studio
-================================
+Godot Bindings for Arm Performance Studio
+=========================================
 
 Introduction
 ------------
 
-Performance Studio includes a component called Streamline, which can collect and
-present hardware performance counters from Android devices. Streamline has an
-*annotations* feature, which allows the application being profiled to emit
+Arm Performance Studio includes a component called Streamline, which can collect
+and present hardware performance counters from Android devices. Streamline has
+an *annotations* feature, which allows the application being profiled to emit
 additional information that Streamline displays with the captured performance
 counter information.
 
 Installation
 ------------
 
-Performance Studio integration in Godot is implemented as an extension. To install
-it, download the latest release and unzip it into your Godot project. The folder
-structure should look like the following:
+Arm Performance Studio integration in Godot is implemented as an extension. To
+install it, download the latest release and unzip it into your Godot project.
+The folder structure should look like the following:
 ```
 YourProject
 ├── addons
@@ -133,7 +133,7 @@ the job when you are done, like you did with Annotations:
 Further Reading
 ---------------
 
-If you'd like to know more or raise any questions, please see the Performance Studio
+If you'd like to know more or raise any questions, please see the Arm Performance Studio
 developer pages at:
 
 https://developer.arm.com/Tools%20and%20Software/Arm%20Performance%20Studio

@@ -1,8 +1,8 @@
 Performance Studio integration for Godot
 ===================================
 
-This extension provides GDScript bindings for integrating the Performance Studio tool
-suite into game development in Godot. This version of the extension provides
+This extension provides GDScript bindings for integrating the Arm Performance Studio
+tool suite into game development in Godot. This version of the extension provides
 bindings for emitting event annotations, software counters and custom activity
 maps.
 
