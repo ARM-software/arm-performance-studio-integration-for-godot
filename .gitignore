@@ -5,6 +5,7 @@
 demo/android
 demo/addons/PerformanceStudio/*
 !demo/addons/PerformanceStudio/*.gdextension
+!demo/addons/PerformanceStudio/demo.gd
 .sconsign*.dblite
 
 # Ignore custom.py
