@@ -126,7 +126,7 @@ the job when you are done, like you did with Annotations:
 
     job = ai_track.create_job("NPC AI", Color8(0, 128, 128))
 
-    // ...do work...
+    # ...do work...
 
     job.stop();
 
