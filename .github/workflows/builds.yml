@@ -68,13 +68,20 @@ jobs:
           submodules: true
           fetch-depth: 0
 
-# Build
+      # Build
       - name: 🔗 GDExtension Debug Build
         uses: ./.github/actions/build
         with:
           platform: ${{ matrix.platform }}
           arch: ${{ matrix.arch }}
           build-target-type: ${{ matrix.target-type }}
+
+      # We want the license and documentation to be included with binary releases.
+      - name: Copy license and docs
+        run: |
+          cp LICENSE.md demo/addons/PerformanceStudio/
+          cp README.md demo/addons/PerformanceStudio/
+          cp -r Documentation demo/addons/PerformanceStudio/
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
