@@ -5,8 +5,8 @@ compatibility_minimum = "4.3"
 
 [libraries]
 
-macos.debug = "./macos/libperformancestudio.macos.template_debug.framework"
-macos.release = "./macos/libperformancestudio.macos.template_release.framework"
+macos.debug = "./macos/libmacos.framework/performancestudio.macos.template_debug"
+macos.release = "./macos/libmacos.framework/performancestudio.macos.template_release"
 windows.debug.x86_32 = "./windows/libperformancestudio.windows.template_debug.x86_32.dll"
 windows.release.x86_32 = "./windows/libperformancestudio.windows.template_release.x86_32.dll"
 windows.debug.x86_64 = "./windows/libperformancestudio.windows.template_debug.x86_64.dll"
