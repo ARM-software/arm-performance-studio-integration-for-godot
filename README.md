@@ -18,7 +18,7 @@ Technical details
 
 ### Requirements
 
-This version of the extension is compatible with Godot 4.3 and later.
+This version of the extension is compatible with Godot 4.5 and later.
 
 ### Installing and using
 
