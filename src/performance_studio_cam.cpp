@@ -1,7 +1,7 @@
 /**
  * SPDX-License-Identifier: BSD-3-Clause
  *
- * Copyright (c) 2023-2024, Arm Limited
+ * Copyright (c) 2023-2026, Arm Limited
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,6 +44,7 @@ using namespace godot;
 
 void PerformanceStudio_CAMJob::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("stop"), &PerformanceStudio_CAMJob::stop);
+	ClassDB::bind_method(D_METHOD("set_dependencies"), &PerformanceStudio_CAMJob::set_dependencies);
 }
 
 void PerformanceStudio_CAMJob::stop() {
@@ -53,13 +54,26 @@ void PerformanceStudio_CAMJob::stop() {
 #endif
 }
 
+void PerformanceStudio_CAMJob::set_dependencies(const TypedArray<PerformanceStudio_CAMJob> jobs) {
+#if defined(__ANDROID__)
+	uint32_t* job_ids = new uint32_t[jobs.size()];
+	for (int64_t i = 0; i < jobs.size(); ++i) {
+		job_ids[i] = static_cast<PerformanceStudio_CAMJob*>(static_cast<Object*>(jobs[i]))->id;
+	}
+
+	gator_cam_job_set_dependencies(cam, id, start_time, 0xffffffff, jobs.size(), job_ids);
+
+	delete[] job_ids;
+#endif
+}
+
 void PerformanceStudio_CAMJob::init(uint32_t cam, uint32_t track, uint32_t id, String name, Color color) {
 	this->cam = cam;
 	this->track = track;
 	this->id = id;
 
 #if defined(__ANDROID__)
-	uint64_t start_time = gator_get_time();
+	start_time = gator_get_time();
 	uint32_t col = color_to_gator_int(color);
 	gator_cam_job_start(cam, id, name.ascii().get_data(), track, start_time, col);
 #endif
@@ -71,6 +85,7 @@ PerformanceStudio_CAMJob::PerformanceStudio_CAMJob() {
 
 void PerformanceStudio_CAMTrack::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("create_job", "name", "color"), &PerformanceStudio_CAMTrack::create_job);
+	ClassDB::bind_method(D_METHOD("create_track", "name"), &PerformanceStudio_CAMTrack::create_track);
 }
 
 Ref<PerformanceStudio_CAMJob> PerformanceStudio_CAMTrack::create_job(String name, Color color) {
@@ -79,13 +94,20 @@ Ref<PerformanceStudio_CAMJob> PerformanceStudio_CAMTrack::create_job(String name
 	return job;
 }
 
-void PerformanceStudio_CAMTrack::init(uint32_t cam, uint32_t id, String name, uint32_t* job_count) {
+Ref<PerformanceStudio_CAMTrack> PerformanceStudio_CAMTrack::create_track(String name) {
+	Ref<PerformanceStudio_CAMTrack> track(memnew(PerformanceStudio_CAMTrack));
+	track->init(cam, ++(*track_count), name, track_count, job_count, id);
+	return track;
+}
+
+void PerformanceStudio_CAMTrack::init(uint32_t cam, uint32_t id, String name, uint32_t* track_count, uint32_t* job_count, uint32_t parent_track) {
 	this->cam = cam;
 	this->id = id;
+	this->track_count = track_count;
 	this->job_count = job_count;
 
 #if defined(__ANDROID__)
-	gator_cam_track(cam, id, 0xffffffff, name.ascii().get_data());
+	gator_cam_track(cam, id, parent_track, name.ascii().get_data());
 #endif
 }
 
@@ -107,7 +129,7 @@ void PerformanceStudio_CAM::cleanup() {
 
 Ref<PerformanceStudio_CAMTrack> PerformanceStudio_CAM::create_track(String name) {
 	Ref<PerformanceStudio_CAMTrack> track(memnew(PerformanceStudio_CAMTrack));
-	track->init(id, ++track_count, name, &job_count);
+	track->init(id, ++track_count, name, &track_count, &job_count);
 	return track;
 }
 

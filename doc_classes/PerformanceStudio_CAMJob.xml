@@ -9,6 +9,13 @@
 	<tutorials>
 	</tutorials>
 	<methods>
+		<method name="set_dependencies">
+			<return type="void" />
+			<param index="0" name="dependencies" type="PerformanceStudio_CAMJob[]" />
+			<description>
+				Marks this job as depending on the specified jobs. When viewing the custom activity map in Streamline, selecting a job will visualise its dependencies.
+			</description>
+		</method>
 		<method name="stop">
 			<return type="void" />
 			<description>

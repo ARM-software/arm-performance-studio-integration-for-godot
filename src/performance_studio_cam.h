@@ -1,7 +1,7 @@
 /**
  * SPDX-License-Identifier: BSD-3-Clause
  *
- * Copyright (c) 2023-2024, Arm Limited
+ * Copyright (c) 2023-2026, Arm Limited
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -51,13 +51,20 @@ namespace godot {
 		 */
 		void stop();
 
+		/*
+		 * Mark the job as being dependent on other jobs.
+		 */
+		void set_dependencies(const TypedArray<PerformanceStudio_CAMJob> jobs);
+
 		void init(uint32_t cam, uint32_t track, uint32_t id, String name, Color color);
 		PerformanceStudio_CAMJob();
+
+		uint32_t id;
 
 	private:
 		uint32_t cam;
 		uint32_t track;
-		uint32_t id;
+		uint64_t start_time;
 	};
 
 	class PerformanceStudio_CAMTrack : public RefCounted {
@@ -72,12 +79,18 @@ namespace godot {
 		 */
 		Ref<PerformanceStudio_CAMJob> create_job(String name, Color color);
 
-		void init(uint32_t cam, uint32_t id, String name, uint32_t* job_count);
+		/*
+		 * Create a child track, which can have jobs placed on it.
+		 */
+		Ref<PerformanceStudio_CAMTrack> create_track(String name);
+
+		void init(uint32_t cam, uint32_t id, String name, uint32_t* track_count, uint32_t* job_count, uint32_t parent_track = 0xffffffff);
 		PerformanceStudio_CAMTrack();
 
 	private:
 		uint32_t cam;
 		uint32_t id;
+		uint32_t* track_count;
 		uint32_t* job_count;
 	};
 

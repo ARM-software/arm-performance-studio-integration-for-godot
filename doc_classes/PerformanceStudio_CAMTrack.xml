@@ -4,7 +4,7 @@
 		Represents a Track within a CAM.
 	</brief_description>
 	<description>
-		Must be created through [method PerformanceStudio_CAM.create_track].
+		Must be created through [method PerformanceStudio_CAM.create_track] or [method PerformanceStudio_CAMTrack.create_track].
 	</description>
 	<tutorials>
 	</tutorials>
@@ -15,6 +15,13 @@
 			<param index="1" name="color" type="Color" />
 			<description>
 				Creates a job on the track, which will mark itself as starting immediately. Mark completion with a call to [method PerformanceStudio_CAMJob.stop] on the resulting job.
+			</description>
+		</method>
+		<method name="create_track">
+			<return type="PerformanceStudio_CAMTrack" />
+			<param index="0" name="name" type="String" />
+			<description>
+				Creates a nested child track with the specified name.
 			</description>
 		</method>
 	</methods>
